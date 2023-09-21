@@ -1,45 +1,35 @@
-describe('create card', () => {
-    it('passes', () => {
-      cy.visit('http://localhost:9000/')
-      cy.get("input[type=question]").type("Eine Frage")
-      cy.get("input[type=answer]").type("Eine Antwort")
-      cy.get("button[type=save]").click()
-    })
+describe('Quiz card', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:9000/')
   })
 
- 
-
-describe('Edit cards', () => {
-    it('passes', () => {
-      cy.visit('http://localhost:9000/')
-      cy.get("input[type=question]").type("Eine Frage")
-      cy.get("input[type=answer]").type("Eine Antwort")
-      cy.get("button[type=save]").click()
-      cy.get("button[type=edit]").click()
-      cy.get("input[type=question]").type(" edited")
-      cy.get("input[type=answer]").type(" edited")
-      cy.get("button[type=save]").click()
-    })
+  it('creates a card', () => {
+    cy.get("input[placeholder='Give your Question']").type("Wo Liegt die Schweiz")
+    cy.get("input[placeholder='Give your answer']").type("In Europa")
+    cy.get("button").contains("Save").click()
   })
 
-describe('delete cards', () => {
-    it('passes', () => {
-      cy.visit('http://localhost:9000/')
-      cy.get("input[type=question]").type("Eine Frage")
-      cy.get("input[type=answer]").type("Eine Antwort")
-      cy.get("button[type=save]").click()
-      cy.get("button[type=delete]").click()
-    })
+  it('edits a card', () => {
+    cy.get("input[placeholder='Give your Question']").type("Wo Liegt die Schweiz")
+    cy.get("input[placeholder='Give your answer']").type("In Europa")
+    cy.get("button").contains("Save").click()
+    cy.get("button").contains("Edit").click()
+    cy.get("input[placeholder='Give your Question']").type(" edited")
+    cy.get("input[placeholder='Give your answer']").type(" edited")
+    cy.get("button").contains("Save").click()
   })
 
- 
-
-  describe('show card answer', () => {
-    it('passes', () => {
-      cy.visit('http://localhost:9000/')
-      cy.get("input[type=question]").type("Eine Frage")
-      cy.get("input[type=answer]").type("Eine Antwort")
-      cy.get("button[type=save]").click()
-      cy.get("button[type=show]").click()
-    })
+  it('deletes a card', () => {
+    cy.get("input[placeholder='Give your Question']").type("Eine Frage")
+    cy.get("input[placeholder='Give your answer']").type("In Europa")
+    cy.get("button").contains("Save").click()
+    cy.get("button").contains("X").click()
   })
+
+  it('shows card answer', () => {
+    cy.get("input[placeholder='Give your Question']").type("Wo Liegt die Schweiz")
+    cy.get("input[placeholder='Give your answer']").type("In Europa")
+    cy.get("button").contains("Save").click()
+    cy.get("button").contains("Show").click()
+  })
+})
